@@ -8,6 +8,7 @@ function Pin(props) {
       <Card.Body>
         <Card.Title>{props.name}</Card.Title>
         <Card.Text>{props.author}</Card.Text>
+        <Card.Text>{props.description}</Card.Text>
       </Card.Body>
     </Card>
   );

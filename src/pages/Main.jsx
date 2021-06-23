@@ -1,51 +1,71 @@
+//Dependencies
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
+//Components
 import Pin from '../components/Pin/Pin';
 
-import axios from 'axios';
+//Hooks
+import useInfiniteScroll from '../hooks/useInfiniteScroll';
 
 const Main = () => {
   const [Pins, setPins] = useState([]);
 
+  const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreListItems);
+
+  function fetchMoreListItems() {
+    setTimeout(() => {
+      setPins((prevState) => [...prevState, ...Pins]);
+      setIsFetching(false);
+    }, 2000);
+  }
+
   useEffect(() => {
-    let mounted = true;
     const getPins = async () => {
       try {
-        let { data } = await axios.get(
-          'https://api.npoint.io/d6c00f3a646e5ecef901'
-        );
-
-        setPins(data);
+        let { data } = await axios.get('../data.json');
+        let moddedData = [];
+        let i = 0;
+        while (i <= data.length) {
+          moddedData.push(data.splice(0, 12));
+          i++;
+        }
+        setPins(moddedData);
       } catch (error) {
         console.error(error);
       }
     };
     getPins();
-    return () => {
-      mounted = false;
-    };
+    return () => {};
   }, []);
 
   const style = {
     display: 'flex',
-    'flex-flow': 'wrap',
+    flexFlow: 'wrap',
   };
 
   return (
     <div style={style}>
-      {Pins.map((pin) => {
-        if (!pin.title) {
-          pin.title = 'Unnamed Kitty';
-        }
-        return (
-          <Pin
-            key={pin.id}
-            image={pin.images.orig.url}
-            name={pin.title}
-            author={pin.pinner.full_name}
-          />
-        );
+      {Pins.map((pinArr) => {
+        console.log('pinArr :>> ', pinArr);
+        return pinArr.map((pin, i) => {
+          return (
+            <Pin
+              key={pin.id}
+              image={
+                pin.images.orig.url ||
+                'https://memegenerator.net/img/instances/400x/42139265.jpg'
+              }
+              name={pin.title}
+              author={pin.pinner.full_name}
+              description={pin.description}
+            />
+          );
+        });
       })}
+      <div style={{ margin: 'auto' }}>
+        {isFetching && 'Fetching more kittens...'}
+      </div>
     </div>
   );
 };
