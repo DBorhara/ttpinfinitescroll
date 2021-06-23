@@ -42,6 +42,7 @@ const Main = () => {
   const style = {
     display: 'flex',
     flexFlow: 'wrap',
+    justifyContent: 'space-between',
   };
 
   return (
