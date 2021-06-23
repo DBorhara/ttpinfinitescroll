@@ -10,7 +10,6 @@ import useInfiniteScroll from '../hooks/useInfiniteScroll';
 
 const Main = () => {
   const [Pins, setPins] = useState([]);
-
   const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreListItems);
 
   function fetchMoreListItems() {
