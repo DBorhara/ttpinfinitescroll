@@ -1,17 +1,15 @@
 import React from 'react';
-import styles from './Pin.module.css';
+import { Card, Button } from 'react-bootstrap';
 
 function Pin(props) {
   return (
-    <div className = {styles.border}>
-      <div className={styles.container}>
-        <img src={props.image} alt={props.alt} />
-        <div className="text">
-          <h1>name:{props.name}</h1>
-          <h1>author:{props.author}</h1>
-        </div>
-      </div>
-    </div>
+    <Card style={{ width: '18rem', margin: '15px' }}>
+      <Card.Img src={props.image} alt={props.alt} />
+      <Card.Body>
+        <Card.Title>{props.name}</Card.Title>
+        <Card.Text>{props.author}</Card.Text>
+      </Card.Body>
+    </Card>
   );
 }
 
