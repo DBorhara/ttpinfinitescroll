@@ -47,7 +47,6 @@ const Main = () => {
   return (
     <div style={style}>
       {Pins.map((pinArr) => {
-        console.log('pinArr :>> ', pinArr);
         return pinArr.map((pin, i) => {
           return (
             <Pin
@@ -56,9 +55,11 @@ const Main = () => {
                 pin.images.orig.url ||
                 'https://memegenerator.net/img/instances/400x/42139265.jpg'
               }
-              name={pin.title}
-              author={pin.pinner.full_name}
-              description={pin.description}
+              name={pin.title || 'Unnamed Meowsterpiece'}
+              author={pin.pinner.full_name || 'Meowstery Author'}
+              description={
+                pin.description || "It's a cat. What else do you want?"
+              }
             />
           );
         });
