@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Pin(props) {
+function Pin(props) {
   return (
     <div>
       <img src={props.image} alt={props.alt} />
@@ -11,3 +11,5 @@ export default function Pin(props) {
     </div>
   );
 }
+
+export default Pin
