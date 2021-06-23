@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Pin from '../components/Pin/Pin';
 
 import axios from 'axios';
 
@@ -24,7 +25,20 @@ const Main = () => {
     };
   }, []);
 
-  return 'test';
+  return (
+    <div>
+      {Pins.map((pin) => {
+        return (
+          <Pin
+            key={pin.id}
+            image={pin.images.orig.url}
+            name={pin.title}
+            author={pin.pinner.full_name}
+          />
+        );
+      })}
+    </div>
+  );
 };
 
 export default Main;
